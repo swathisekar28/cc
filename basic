@@ -1,0 +1,299 @@
+. Reverse a String
+Write a program to reverse a string without using any library functions.
+
+c
+Copy code
+#include <stdio.h>
+#include <string.h>
+
+void reverseString(char str[]) {
+    int start = 0, end = strlen(str) - 1;
+    while (start < end) {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        start++;
+        end--;
+    }
+}
+
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = 0; // Remove newline character
+    reverseString(str);
+    printf("Reversed string: %s\n", str);
+    return 0;
+}
+2. Check for Palindrome
+Write a program to check if a string is a palindrome.
+
+c
+Copy code
+#include <stdio.h>
+#include <string.h>
+
+int isPalindrome(char str[]) {
+    int len = strlen(str);
+    for (int i = 0; i < len / 2; i++) {
+        if (str[i] != str[len - i - 1]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = 0;
+    
+    if (isPalindrome(str)) {
+        printf("The string is a palindrome.\n");
+    } else {
+        printf("The string is not a palindrome.\n");
+    }
+    return 0;
+}
+3. Find the Factorial of a Number
+Write a recursive function to compute the factorial of a number.
+
+c
+Copy code
+#include <stdio.h>
+
+int factorial(int n) {
+    if (n == 0) return 1;
+    return n * factorial(n - 1);
+}
+
+int main() {
+    int num;
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    
+    printf("Factorial of %d is %d\n", num, factorial(num));
+    return 0;
+}
+4. Fibonacci Sequence
+Generate the first N Fibonacci numbers.
+
+c
+Copy code
+#include <stdio.h>
+
+void fibonacci(int n) {
+    int a = 0, b = 1, next;
+    for (int i = 0; i < n; i++) {
+        printf("%d ", a);
+        next = a + b;
+        a = b;
+        b = next;
+    }
+    printf("\n");
+}
+
+int main() {
+    int n;
+    printf("Enter the number of terms: ");
+    scanf("%d", &n);
+    fibonacci(n);
+    return 0;
+}
+5. Sort an Array
+Implement a simple sorting algorithm (e.g., bubble sort).
+
+c
+Copy code
+#include <stdio.h>
+
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++) {
+        for (int j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                // Swap
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    bubbleSort(arr, n);
+    printf("Sorted array: \n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    return 0;
+}
+6. Count Vowels and Consonants
+Count the number of vowels and consonants in a given string.
+
+c
+Copy code
+#include <stdio.h>
+#include <ctype.h>
+
+void countVowelsConsonants(char str[]) {
+    int vowels = 0, consonants = 0;
+    for (int i = 0; str[i]; i++) {
+        char ch = tolower(str[i]);
+        if (ch >= 'a' && ch <= 'z') {
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+                vowels++;
+            } else {
+                consonants++;
+            }
+        }
+    }
+    printf("Vowels: %d, Consonants: %d\n", vowels, consonants);
+}
+
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    countVowelsConsonants(str);
+    return 0;
+}
+7. Find the Largest Element in an Array
+Write a program to find the largest number in an array.
+
+c
+Copy code
+#include <stdio.h>
+
+int findLargest(int arr[], int n) {
+    int largest = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > largest) {
+            largest = arr[i];
+        }
+    }
+    return largest;
+}
+
+int main() {
+    int arr[] = {3, 5, 7, 2, 8};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    printf("Largest element: %d\n", findLargest(arr, n));
+    return 0;
+}
+8. Remove Duplicates from an Array
+Write a program to remove duplicates from an array.
+
+c
+Copy code
+#include <stdio.h>
+
+void removeDuplicates(int arr[], int *n) {
+    int temp[*n];
+    int j = 0;
+
+    for (int i = 0; i < *n; i++) {
+        int isDuplicate = 0;
+        for (int k = 0; k < j; k++) {
+            if (arr[i] == temp[k]) {
+                isDuplicate = 1;
+                break;
+            }
+        }
+        if (!isDuplicate) {
+            temp[j++] = arr[i];
+        }
+    }
+
+    for (int i = 0; i < j; i++) {
+        arr[i] = temp[i];
+    }
+    *n = j;
+}
+
+int main() {
+    int arr[] = {1, 2, 2, 3, 4, 4, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    removeDuplicates(arr, &n);
+    
+    printf("Array after removing duplicates: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    
+    return 0;
+}
+9. Implement a Simple Calculator
+Create a simple calculator that performs basic operations.
+
+c
+Copy code
+#include <stdio.h>
+
+float add(float a, float b) { return a + b; }
+float subtract(float a, float b) { return a - b; }
+float multiply(float a, float b) { return a * b; }
+float divide(float a, float b) { return a / b; }
+
+int main() {
+    float num1, num2;
+    char operator;
+    
+    printf("Enter first number: ");
+    scanf("%f", &num1);
+    
+    printf("Enter an operator (+, -, *, /): ");
+    scanf(" %c", &operator);
+    
+    printf("Enter second number: ");
+    scanf("%f", &num2);
+    
+    switch (operator) {
+        case '+':
+            printf("%.2f + %.2f = %.2f\n", num1, num2, add(num1, num2));
+            break;
+        case '-':
+            printf("%.2f - %.2f = %.2f\n", num1, num2, subtract(num1, num2));
+            break;
+        case '*':
+            printf("%.2f * %.2f = %.2f\n", num1, num2, multiply(num1, num2));
+            break;
+        case '/':
+            if (num2 != 0)
+                printf("%.2f / %.2f = %.2f\n", num1, num2, divide(num1, num2));
+            else
+                printf("Error: Division by zero.\n");
+            break;
+        default:
+            printf("Error: Invalid operator.\n");
+    }
+    
+    return 0;
+}
+10. Find GCD of Two Numbers
+Use the Euclidean algorithm to find the GCD.
+
+c
+Copy code
+#include <stdio.h>
+
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
+
+int main() {
+    int a, b;
+    printf("Enter two numbers: ");
+    scanf("%d %d", &a, &b);
+    
+    printf("GCD of %d and %d is %d\n", a, b, gcd(a, b));
+    return 0;
+}
